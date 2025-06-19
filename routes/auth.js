@@ -10,10 +10,6 @@ const USER = mongoose.model("USER");
 const {Jwt_secret} = require("../keys");
 
 
-
-
-
-
 router.post("/signup" , (req,res)=> {
     const {name , userName , password ,email} = req.body;
     const ip = req.headers['cf-connecting-ip'] ||

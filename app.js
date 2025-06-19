@@ -2,17 +2,18 @@ const express = require('express');
 const cors = require('cors');
 
 
-
 const port = 5000;
 const app = express();
 
 app.use(cors())
+// All Models Database
 require('./model/user')
+require('./model/artClub/clubNews')
 
-
+// All APIs
 app.use(express.json());
 app.use(require('./routes/auth'))
-
+app.use(require('./routes/artClub'))
 
 
 app.listen(port , () => {
