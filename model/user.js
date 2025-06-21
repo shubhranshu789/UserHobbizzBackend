@@ -6,11 +6,19 @@ const userSchema = new mongoose.Schema({
         type:String,
         require:true
     },
-    userName:{
+    email:{
         type: String,
         require:true
     },
-    email:{
+    state:{
+        type: String,
+        require:true
+    },
+    district:{
+        type: String,
+        require:true
+    },
+    school:{
         type: String,
         require:true
     },
