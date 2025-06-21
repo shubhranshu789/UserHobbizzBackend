@@ -9,11 +9,14 @@ app.use(cors())
 // All Models Database
 require('./model/user')
 require('./model/artClub/clubNews')
+require('./model/danceClub/danceClubNews')
+
 
 // All APIs
 app.use(express.json());
 app.use(require('./routes/auth'))
 app.use(require('./routes/artClub'))
+app.use(require('./routes/danceClub'))
 
 
 app.listen(port , () => {
