@@ -38,7 +38,7 @@ router.post("/create-activity", requireLoginUser, async (req, res) => {
 });
 
 
-router.get("/allActivities", requireLoginUser, (req, res) => {
+router.get("/allActivities", (req, res) => {
   ACTIVITY.find().then((events) => {
     res.json(events);
   });

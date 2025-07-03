@@ -18,7 +18,7 @@ const COMPITITION = mongoose.model("COMPITITION");
 
 
 
-router.get("/allCompitition", requireLoginUser, async (req, res) => {
+router.get("/allCompitition", async (req, res) => {
   try {
     const liveEvents = await COMPITITION.find({ isLive: true });
     res.status(200).json(liveEvents);
