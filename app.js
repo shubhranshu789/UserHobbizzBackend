@@ -10,6 +10,16 @@ app.use(cors())
 require('./model/user')
 require('./model/artClub/clubNews')
 require('./model/danceClub/danceClubNews')
+require('./model/artClub/addActivity')
+require('./model/artClub/addCompitition')
+require('./model/artClub/journal')
+require('./model/artClub/clubDomain')
+require('./model/artClub/clubGallery')
+require('./model/artClub/clubHeritage')
+require('./model/calender')
+require('./model/artClub/director')
+require('./model/artClub/judge')
+
 
 
 // All APIs
@@ -17,6 +27,8 @@ app.use(express.json());
 app.use(require('./routes/auth'))
 app.use(require('./routes/artClub'))
 app.use(require('./routes/danceClub'))
+app.use(require('./routes/activity'))
+app.use(require('./routes/compitition'))
 
 
 app.listen(port , () => {
