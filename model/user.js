@@ -26,6 +26,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         require:true
     },
+    club:{
+        type:String,
+        require:true
+    },
     //add IP
     ip:{
         type: String,
