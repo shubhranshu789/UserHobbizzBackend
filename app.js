@@ -17,9 +17,10 @@ require('./model/artClub/clubDomain')
 require('./model/artClub/clubGallery')
 require('./model/artClub/clubHeritage')
 require('./model/calender')
-require('./model/artClub/director')
+require('./model/director')
 require('./model/artClub/judge')
 require('./model/localEvent')
+require('./model/cabinate')
 require('./model/artClub/artClubs')
 
 

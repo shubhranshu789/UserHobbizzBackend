@@ -7,6 +7,7 @@ const requireLoginUser = require("../middleWares/requireLoginUser");
 const DIRECTOR = mongoose.model("DIRECTOR");
 const LOCALEVENT= mongoose.model("LOCALEVENT");
 const ARTCLUB = mongoose.model("ARTCLUB");
+const CABINATE = mongoose.model("CABINATE");
 
 
 // GET /get-chapter?club=artclub&district=Varanasi

@@ -68,7 +68,7 @@ router.post("/signin" , (req , res) => {
             if(match){
                 // return res.status(200).json({message :"Signed In Successufully" })
                 const token = jwt.sign({_id:savedUser.id} , Jwt_secret)
-                const {_id ,name , email , state , district , school } = savedUser
+                const {_id ,name , email , state , district , school, club } = savedUser
                 res.json({token , user:{_id ,name , email , state , district , school ,club}})
                 console.log({token , user:{_id ,name , email , state , district , school, club}})
             }else{
