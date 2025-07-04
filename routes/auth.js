@@ -69,8 +69,8 @@ router.post("/signin" , (req , res) => {
                 // return res.status(200).json({message :"Signed In Successufully" })
                 const token = jwt.sign({_id:savedUser.id} , Jwt_secret)
                 const {_id ,name , email , state , district , school } = savedUser
-                res.json({token , user:{_id ,name , email , state , district , school }})
-                console.log({token , user:{_id ,name , email , state , district , school}})
+                res.json({token , user:{_id ,name , email , state , district , school ,club}})
+                console.log({token , user:{_id ,name , email , state , district , school, club}})
             }else{
                 return res.status(422).json({error :"Invalid password" })
             }
