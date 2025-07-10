@@ -18,9 +18,13 @@ require('./model/artClub/clubGallery')
 require('./model/artClub/clubHeritage')
 require('./model/calender')
 require('./model/director')
+require('./model/principle')
+require('./model/editor')
 require('./model/artClub/judge')
 require('./model/localEvent')
 require('./model/cabinate')
+require('./model/school')
+
 require('./model/artClub/artClubs')
 
 
@@ -33,6 +37,7 @@ app.use(require('./routes/danceClub'))
 app.use(require('./routes/activity'))
 app.use(require('./routes/compitition'))
 app.use(require('./routes/chapter'))
+app.use(require('./routes/school'))
 
 
 app.listen(port , () => {

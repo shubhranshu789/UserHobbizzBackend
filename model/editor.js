@@ -27,4 +27,4 @@ const directorSchema = new mongoose.Schema({
 
 
 
-mongoose.model("DIRECTOR" ,directorSchema )
+mongoose.model("EDITOR" ,directorSchema )

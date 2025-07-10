@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 
-const directorSchema = new mongoose.Schema({
+const principleSchema = new mongoose.Schema({
     name : {
         type:String,
         require:true
@@ -27,4 +27,4 @@ const directorSchema = new mongoose.Schema({
 
 
 
-mongoose.model("DIRECTOR" ,directorSchema )
+mongoose.model("PRINCIPLE" ,principleSchema )
