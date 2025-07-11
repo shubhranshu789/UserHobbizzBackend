@@ -24,8 +24,8 @@ require('./model/artClub/judge')
 require('./model/localEvent')
 require('./model/cabinate')
 require('./model/school')
-
 require('./model/artClub/artClubs')
+require('./model/artClub/clublegacy')
 
 
 
