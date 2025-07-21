@@ -40,6 +40,37 @@ app.use(require('./routes/chapter'))
 app.use(require('./routes/school'))
 
 
+
+
+
+// --------------------------------------------------------CraftClub-------------------------------------------------------------------
+require('./AllModels/CraftClub/cabinate')
+require('./AllModels/CraftClub/director')
+require('./AllModels/CraftClub/editor')
+require('./AllModels/CraftClub/principle')
+require('./AllModels/CraftClub/user')
+
+require('./AllModels/CraftClub/craft/addActivity')
+require('./AllModels/CraftClub/craft/addCompitition')
+require('./AllModels/CraftClub/craft/artClubs')
+require('./AllModels/CraftClub/craft/clubDomain')
+require('./AllModels/CraftClub/craft/clubGallery')
+require('./AllModels/CraftClub/craft/clubHeritage')
+require('./AllModels/CraftClub/craft/clubNews')
+require('./AllModels/CraftClub/craft/clublegacy')
+require('./AllModels/CraftClub/craft/journal')
+require('./AllModels/CraftClub/craft/judge')
+
+
+
+
+app.use(require('./routes/AllClubRoutes/craftClub/activity'))
+app.use(require('./routes/AllClubRoutes/craftClub/auth'))
+app.use(require('./routes/AllClubRoutes/craftClub/compitition'))
+app.use(require('./routes/AllClubRoutes/craftClub/craft'))
+// --------------------------------------------------------CraftClub-------------------------------------------------------------------
+
+
 app.listen(port , () => {
     console.log(`Server is running on port ${port}`);
 })
