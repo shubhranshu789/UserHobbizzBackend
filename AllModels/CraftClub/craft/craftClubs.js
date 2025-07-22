@@ -6,14 +6,14 @@ const { ObjectId } = mongoose.Schema.Types;
 const artClubSchema = new mongoose.Schema(
   {
     district: { type: String, required: true },
-    activities: [{ type: ObjectId, ref: "ACTIVITY" }],
-    head: { type: ObjectId, ref: "CABINATE", default: null},
-    members: [{ type: ObjectId, ref: "CABINATE" }],
-    memberRequests: [{ type: ObjectId, ref: "CABINATE" }], 
+    activities: [{ type: ObjectId, ref: "CRAFTACTIVITY" }],
+    head: { type: ObjectId, ref: "CRAFTCABINATE", default: null},
+    members: [{ type: ObjectId, ref: "CRAFTCABINATE" }],
+    memberRequests: [{ type: ObjectId, ref: "CRAFTCABINATE" }], 
     pendingRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: "CABINATE" }],
     director: { type: ObjectId, ref: "DIRECTOR", required: false },
-    ambassadors: { type: ObjectId, ref: "CABINATE" },
-    ambassadorRequests: [{ type: ObjectId, ref: "CABINATE" }],
+    ambassadors: { type: ObjectId, ref: "CRAFTCABINATE" },
+    ambassadorRequests: [{ type: ObjectId, ref: "CRAFTCABINATE" }],
     chapterStatus: {
       type: String,
       enum: ["Inactive", "Active"],
@@ -23,4 +23,4 @@ const artClubSchema = new mongoose.Schema(
   { timestamps : true }
 );
 
-module.exports = mongoose.model("CRAFTARTCLUB", artClubSchema);
+module.exports = mongoose.model("CRAFTCLUB", artClubSchema);

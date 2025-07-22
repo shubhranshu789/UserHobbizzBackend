@@ -31,16 +31,16 @@ require('./model/artClub/clublegacy')
 
 // All APIs
 app.use(express.json());
-app.use(require('./routes/auth'))
-app.use(require('./routes/artClub'))
+app.use(require('./routes/AllClubRoutes/artClub/auth'))
+app.use(require('./routes/AllClubRoutes/artClub/artClub'))
+app.use(require('./routes/AllClubRoutes/artClub/activity'))
+app.use(require('./routes/AllClubRoutes/artClub/compitition'))
+app.use(require('./routes/AllClubRoutes/artClub/school'))
+
+
+
 app.use(require('./routes/danceClub'))
-app.use(require('./routes/activity'))
-app.use(require('./routes/compitition'))
 app.use(require('./routes/chapter'))
-app.use(require('./routes/school'))
-
-
-
 
 
 // --------------------------------------------------------CraftClub-------------------------------------------------------------------
@@ -49,10 +49,12 @@ require('./AllModels/CraftClub/director')
 require('./AllModels/CraftClub/editor')
 require('./AllModels/CraftClub/principle')
 require('./AllModels/CraftClub/user')
+require('./AllModels/CraftClub/localevent')
+require('./AllModels/CraftClub/school')
 
 require('./AllModels/CraftClub/craft/addActivity')
 require('./AllModels/CraftClub/craft/addCompitition')
-require('./AllModels/CraftClub/craft/artClubs')
+require('./AllModels/CraftClub/craft/craftClubs')
 require('./AllModels/CraftClub/craft/clubDomain')
 require('./AllModels/CraftClub/craft/clubGallery')
 require('./AllModels/CraftClub/craft/clubHeritage')
@@ -68,6 +70,7 @@ app.use(require('./routes/AllClubRoutes/craftClub/activity'))
 app.use(require('./routes/AllClubRoutes/craftClub/auth'))
 app.use(require('./routes/AllClubRoutes/craftClub/compitition'))
 app.use(require('./routes/AllClubRoutes/craftClub/craft'))
+app.use(require('./routes/AllClubRoutes/craftClub/school'))
 // --------------------------------------------------------CraftClub-------------------------------------------------------------------
 
 

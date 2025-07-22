@@ -6,7 +6,7 @@ const bcryptjs = require('bcryptjs');
 const jwt = require("jsonwebtoken")
 
 
-const USER = mongoose.model("USER");
+const USER = mongoose.model("CRAFTUSER");
 const {Jwt_secret} = require("../../../keys");
 
 
@@ -79,50 +79,6 @@ router.post("/craftsignin" , (req , res) => {
         // console.log(savedUser)
     })
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

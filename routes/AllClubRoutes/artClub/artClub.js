@@ -5,7 +5,7 @@ const router = express.Router()
 const bcryptjs = require('bcryptjs');
 const jwt = require("jsonwebtoken")
 
-const {Jwt_secret} = require("../keys");
+const {Jwt_secret} = require("../../../keys");
 
 const CLUBNEWS = mongoose.model("CLUBNEWS");
 const CLUBJOURNAL = mongoose.model("CLUBJOURNAL");
@@ -16,7 +16,7 @@ const CALENDAR = mongoose.model("CALENDAR");
 const ACTIVITY = mongoose.model("ACTIVITY");
 const LEGACY = mongoose.model("LEGACY");
 
-const requireLoginUser = require("../middleWares/requireLoginUser");
+const requireLoginUser = require("../../../middleWares/requireLoginUser");
 
 
 // ----------------------------------------------------CLUBNEWS--------------------------------------------------------------
