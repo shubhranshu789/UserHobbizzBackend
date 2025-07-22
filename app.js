@@ -28,28 +28,13 @@ require('./model/artClub/artClubs')
 require('./model/artClub/clublegacy')
 
 
-
-// All APIs
-app.use(express.json());
-app.use(require('./routes/AllClubRoutes/artClub/auth'))
-app.use(require('./routes/AllClubRoutes/artClub/artClub'))
-app.use(require('./routes/AllClubRoutes/artClub/activity'))
-app.use(require('./routes/AllClubRoutes/artClub/compitition'))
-app.use(require('./routes/AllClubRoutes/artClub/school'))
-
-
-
-app.use(require('./routes/danceClub'))
-app.use(require('./routes/chapter'))
-
-
 // --------------------------------------------------------CraftClub-------------------------------------------------------------------
 require('./AllModels/CraftClub/cabinate')
 require('./AllModels/CraftClub/director')
 require('./AllModels/CraftClub/editor')
+require('./AllModels/CraftClub/localevent')
 require('./AllModels/CraftClub/principle')
 require('./AllModels/CraftClub/user')
-require('./AllModels/CraftClub/localevent')
 require('./AllModels/CraftClub/school')
 
 require('./AllModels/CraftClub/craft/addActivity')
@@ -63,6 +48,19 @@ require('./AllModels/CraftClub/craft/clublegacy')
 require('./AllModels/CraftClub/craft/journal')
 require('./AllModels/CraftClub/craft/judge')
 
+// All APIs
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(require('./routes/AllClubRoutes/artClub/auth'))
+app.use(require('./routes/AllClubRoutes/artClub/artClub'))
+app.use(require('./routes/AllClubRoutes/artClub/activity'))
+app.use(require('./routes/AllClubRoutes/artClub/compitition'))
+app.use(require('./routes/AllClubRoutes/artClub/school'))
+
+
+
+app.use(require('./routes/danceClub'))
+app.use(require('./routes/chapter'))
 
 
 

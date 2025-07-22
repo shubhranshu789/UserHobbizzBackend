@@ -2,12 +2,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
 
-const requireLoginUser = require("../middleWares/requireLoginUser");
 
 const DIRECTOR = mongoose.model("DIRECTOR");
-//const CRAFTLOCALEVENT= mongoose.model("CRAFTLOCALEVENT");
 const LOCALEVENT= mongoose.model("LOCALEVENT");
+const CRAFTLOCALEVENT= mongoose.model("CRAFTLOCALEVENT");
 
+const ARTCLUB = mongoose.model("ARTCLUB");
+const CRAFTCLUB = mongoose.model("CRAFTCLUB");
 
 
 // GET /get-chapter?club=artclub&district=Varanasi
@@ -62,6 +63,110 @@ router.get("/get-events", async (req, res) => {
   }
 });
 
+
+
+
+
+
+router.post("/create-event", async (req, res) => {
+  const clubModels = {
+    "artclub": ARTCLUB,
+    "craftclub": CRAFTCLUB
+  };
+  const eventModels = {
+    "artclub": LOCALEVENT,
+    "craftclub": CRAFTLOCALEVENT
+  };
+
+  try {
+    const { title, description, date, venue, club, district, status, image } = req.body;
+
+    // Validate required fields
+    if (!title || !date || !venue || !club || !district) {
+      return res.status(400).json({ message: "Title, Date, Venue, Club, and District are required" });
+    }
+
+    // Fetch Director based on club
+    const director = await DIRECTOR.findOne({ club: club });
+    if (!director) {
+      return res.status(404).json({ message: `Director not found for club: ${club}` });
+    }
+
+    // Select club model dynamically
+    const ClubModel = clubModels[club];
+
+    if (!ClubModel) {
+      return res.status(400).json({ message: `Invalid club type: ${club}` });
+    } 
+
+    // Fetch Art Club for given district and club
+    const Club = await ClubModel.findOne({ district });
+    if (!Club) {
+      return res.status(403).json({ message: `Art club not found for district: ${district}` });
+    }
+
+    const head = Club.head;
+    
+    const EventModel = eventModels[club];
+    if (!EventModel) {
+      return res.status(400).json({ message: `Invalid club type: ${club}` });
+    } 
+
+    // Create new Event
+    const newEvent = new EventModel({
+      title,
+      image,
+      description,
+      date,
+      venue,
+      club,
+      district,
+      status,
+      head,
+      director: director._id,
+      
+    });
+
+    const savedEvent = await newEvent.save();
+
+    res.status(201).json({ message: "Event created successfully", event: savedEvent });
+
+  } catch (error) {
+    console.error("Error creating event:", error);
+    res.status(500).json({ message: "Failed to create event", error: error.message });
+  }
+});
+
+
+// DELETE Event by ID
+router.delete("/delete-event/", async (req, res) => {
+  const eventModels = {
+    "artclub": LOCALEVENT,
+    "craftclub": CRAFTLOCALEVENT
+  };
+  
+  const eventId = req.query.eventId;
+  const club = req.query.club;
+
+  if (!eventId) {
+    return res.status(400).json({ error: "Event ID is required" });
+  }
+
+  const EventModel = eventModels[club];
+
+  try {
+    const deletedEvent = await EventModel.findByIdAndDelete(eventId);
+
+    if (!deletedEvent) {
+      return res.status(404).json({ error: "Event not found" });
+    }
+
+    res.status(200).json({ message: "Event deleted successfully", deletedEvent });
+  } catch (err) {
+    console.error("Error deleting event:", err);
+    res.status(500).json({ error: "Failed to delete event" });
+  }
+});
 
 
 
