@@ -6,64 +6,30 @@ const port = 5000;
 const app = express();
 
 app.use(cors())
+
+
+
+// --------------------------------------------------------ArtClub-------------------------------------------------------------------
 // All Models Database
-<<<<<<< HEAD
-require('./model/user')
-require('./model/artClub/clubNews')
-require('./model/artClub/addActivity')
-require('./model/artClub/addCompitition')
-require('./model/artClub/journal')
-require('./model/artClub/clubDomain')
-require('./model/artClub/clubGallery')
-require('./model/artClub/clubHeritage')
-require('./model/calender')
-require('./model/director')
-require('./model/principle')
-require('./model/editor')
-require('./model/artClub/judge')
-require('./model/localEvent')
-require('./model/cabinate')
-require('./model/school')
-require('./model/artClub/artClubs')
-require('./model/artClub/clublegacy')
-
-
-
-// All APIs
-app.use(express.json());
-app.use(require('./routes/auth'))
-app.use(require('./routes/artClub'))
-app.use(require('./routes/activity'))
-app.use(require('./routes/compitition'))
-app.use(require('./routes/chapter'))
-app.use(require('./routes/school'))
-
-
-=======
 require('./AllModels/ArtClub/user')
+require('./AllModels/ArtClub/art/clubNews')
+require('./AllModels/ArtClub/art/addActivity')
+require('./AllModels/ArtClub/art/addCompitition')
+require('./AllModels/ArtClub/art/journal')
+require('./AllModels/ArtClub/art/clubDomain')
+require('./AllModels/ArtClub/art/clubGallery')
+require('./AllModels/ArtClub/art/clubHeritage')
 require('./AllModels/ArtClub/calender')
-require('./AllModels/ArtClub/principle')
 require('./AllModels/ArtClub/director')
+require('./AllModels/ArtClub/principle')
 require('./AllModels/ArtClub/editor')
+require('./AllModels/ArtClub/art/judge')
 require('./AllModels/ArtClub/localEvent')
 require('./AllModels/ArtClub/cabinate')
 require('./AllModels/ArtClub/school')
 require('./AllModels/ArtClub/art/artClubs')
 require('./AllModels/ArtClub/art/clublegacy')
-require('./AllModels/ArtClub/art/clubNews')
-require('./AllModels/ArtClub/art/addActivity')
-require('./AllModels/ArtClub/art/addCompitition')
-require('./AllModels/ArtClub/art/judge')
-require('./AllModels/ArtClub/art/journal')
-require('./AllModels/ArtClub/art/clubDomain')
-require('./AllModels/ArtClub/art/clubGallery')
-require('./AllModels/ArtClub/art/clubHeritage')
 
-
-
-// ------------------------------------------------------DanceClub-------------------------------------------------------------------
-require('./Model/danceClub/danceClubNews')
->>>>>>> 48d92ea2230e90d0a150e888c18e9937b736c0bd
 
 
 
@@ -110,9 +76,6 @@ require('./AllModels/TechClub/tech/techjournal')
 require('./AllModels/TechClub/tech/techjudge')
 
 
-
-
-
 // All APIs
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -136,7 +99,7 @@ app.use(require('./routes/AllClubRoutes/techClub/compitition'))
 app.use(require('./routes/AllClubRoutes/techClub/techClub'))
 
 
-app.use(require('./routes/danceClub'))
+// app.use(require('./routes/danceClub'))
 app.use(require('./routes/chapter'))
 
 
