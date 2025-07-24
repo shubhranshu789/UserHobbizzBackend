@@ -6,16 +6,19 @@ const router = express.Router();
 const DIRECTOR = mongoose.model("DIRECTOR");
 const LOCALEVENT= mongoose.model("LOCALEVENT");
 const CRAFTLOCALEVENT= mongoose.model("CRAFTLOCALEVENT");
+const TECHLOCALEVENT= mongoose.model("TECHLOCALEVENT");
 
 const ARTCLUB = mongoose.model("ARTCLUB");
 const CRAFTCLUB = mongoose.model("CRAFTCLUB");
+const TECHCLUB = mongoose.model("TECHCLUB");
 
 
 // GET /get-chapter?club=artclub&district=Varanasi
 router.get("/get-events", async (req, res) => {
   const eventModels = {
   "artclub": LOCALEVENT,
-  "craftclub": CRAFTLOCALEVENT
+  "craftclub": CRAFTLOCALEVENT,
+  "techclub": TECHLOCALEVENT
 };
   try {
     const { club, district } = req.query;
@@ -71,11 +74,13 @@ router.get("/get-events", async (req, res) => {
 router.post("/create-event", async (req, res) => {
   const clubModels = {
     "artclub": ARTCLUB,
-    "craftclub": CRAFTCLUB
+    "craftclub": CRAFTCLUB,
+    "techclub": TECHCLUB
   };
   const eventModels = {
     "artclub": LOCALEVENT,
-    "craftclub": CRAFTLOCALEVENT
+    "craftclub": CRAFTLOCALEVENT,
+    "techclub": TECHLOCALEVENT
   };
 
   try {
@@ -142,7 +147,8 @@ router.post("/create-event", async (req, res) => {
 router.delete("/delete-event/", async (req, res) => {
   const eventModels = {
     "artclub": LOCALEVENT,
-    "craftclub": CRAFTLOCALEVENT
+    "craftclub": CRAFTLOCALEVENT,
+    "techclub": TECHLOCALEVENT
   };
   
   const eventId = req.query.eventId;
@@ -174,7 +180,8 @@ router.get("/event-details", async (req, res) => {
 
   const eventModels = {
     "artclub": LOCALEVENT,
-    "craftclub": CRAFTLOCALEVENT
+    "craftclub": CRAFTLOCALEVENT,
+    "techclub": TECHLOCALEVENT
   };
 
   const event_id = req.query.event_id;

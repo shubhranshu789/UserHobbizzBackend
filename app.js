@@ -35,6 +35,7 @@ require('./Model/danceClub/danceClubNews')
 
 // --------------------------------------------------------CraftClub-------------------------------------------------------------------
 require('./AllModels/CraftClub/cabinate')
+require('./AllModels/CraftClub/calendar')
 require('./AllModels/CraftClub/director')
 require('./AllModels/CraftClub/editor')
 require('./AllModels/CraftClub/localevent')
@@ -51,6 +52,29 @@ require('./AllModels/CraftClub/craft/clubNews')
 require('./AllModels/CraftClub/craft/clublegacy')
 require('./AllModels/CraftClub/craft/journal')
 require('./AllModels/CraftClub/craft/judge')
+
+
+//---------------------------------------------------------TechClub-------------------------------------------------------------------
+
+require('./AllModels/TechClub/techcabinate')
+require('./AllModels/TechClub/techcalender')
+require('./AllModels/TechClub/techdirector')
+require('./AllModels/TechClub/techeditor')
+require('./AllModels/TechClub/techlocalevent')
+require('./AllModels/TechClub/techprinciple')
+require('./AllModels/TechClub/techschool')
+require('./AllModels/TechClub/techuser')
+require('./AllModels/TechClub/tech/techaddActivity')
+require('./AllModels/TechClub/tech/techaddCompitition')
+require('./AllModels/TechClub/tech/techClubs')
+require('./AllModels/TechClub/tech/techclubDomain')
+require('./AllModels/TechClub/tech/techclubGallery')
+require('./AllModels/TechClub/tech/techclubHeritage')
+require('./AllModels/TechClub/tech/techclubNews')
+require('./AllModels/TechClub/tech/techclublegacy')
+require('./AllModels/TechClub/tech/techjournal')
+require('./AllModels/TechClub/tech/techjudge')
+
 
 
 
@@ -71,12 +95,18 @@ app.use(require('./routes/AllClubRoutes/craftClub/compitition'))
 app.use(require('./routes/AllClubRoutes/craftClub/craft'))
 app.use(require('./routes/AllClubRoutes/craftClub/school'))
 
+
+app.use(require('./routes/AllClubRoutes/techClub/activity'))
+app.use(require('./routes/AllClubRoutes/techClub/auth'))
+app.use(require('./routes/AllClubRoutes/techClub/compitition'))
+app.use(require('./routes/AllClubRoutes/techClub/techClub'))
+
+
 app.use(require('./routes/danceClub'))
 app.use(require('./routes/chapter'))
 
 
 
-// --------------------------------------------------------CraftClub-------------------------------------------------------------------
 
 
 app.listen(port , () => {
