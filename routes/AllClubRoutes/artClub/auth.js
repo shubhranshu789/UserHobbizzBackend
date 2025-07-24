@@ -6,13 +6,13 @@ const bcryptjs = require('bcryptjs');
 const jwt = require("jsonwebtoken")
 
 
-const USER = mongoose.model("CRAFTUSER");
+const USER = mongoose.model("USER");
 const {Jwt_secret} = require("../../../keys");
 
 
 
 
-router.post("/craftsignup" , (req,res)=> {
+router.post("/signup" , (req,res)=> {
     const {name , password ,email , state , district , school , club} = req.body;
     const ip = req.headers['cf-connecting-ip'] ||
                 req.headers['x-real-ip'] ||
@@ -20,7 +20,7 @@ router.post("/craftsignup" , (req,res)=> {
                 req.socket.remoteAddress || '' ;
 
 
-    if(!name ||!password ||!email || !state || !district || !school ){
+    if(!name ||!password ||!email || !state || !district || !school || !club){
         return res.status(422).json({error : "Please add all the fields"})
     }
 
@@ -53,7 +53,7 @@ router.post("/craftsignup" , (req,res)=> {
 
 
 
-router.post("/craftsignin" , (req , res) => {
+router.post("/signin" , (req , res) => {
     const {email , password} = req.body;
 
     if(!email || !password){
@@ -79,6 +79,50 @@ router.post("/craftsignin" , (req , res) => {
         // console.log(savedUser)
     })
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

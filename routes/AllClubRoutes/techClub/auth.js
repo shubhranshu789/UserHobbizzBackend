@@ -6,13 +6,13 @@ const bcryptjs = require('bcryptjs');
 const jwt = require("jsonwebtoken")
 
 
-const USER = mongoose.model("USER");
-const {Jwt_secret} = require("../keys");
+const USER = mongoose.model("TECHUSER");
+const {Jwt_secret} = require("../../../keys");
 
 
 
 
-router.post("/signup" , (req,res)=> {
+router.post("/techsignup" , (req,res)=> {
     const {name , password ,email , state , district , school , club} = req.body;
     const ip = req.headers['cf-connecting-ip'] ||
                 req.headers['x-real-ip'] ||
@@ -20,7 +20,7 @@ router.post("/signup" , (req,res)=> {
                 req.socket.remoteAddress || '' ;
 
 
-    if(!name ||!password ||!email || !state || !district || !school || !club){
+    if(!name ||!password ||!email || !state || !district || !school ){
         return res.status(422).json({error : "Please add all the fields"})
     }
 
@@ -53,7 +53,7 @@ router.post("/signup" , (req,res)=> {
 
 
 
-router.post("/signin" , (req , res) => {
+router.post("/techsignin" , (req , res) => {
     const {email , password} = req.body;
 
     if(!email || !password){
@@ -79,50 +79,6 @@ router.post("/signin" , (req , res) => {
         // console.log(savedUser)
     })
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

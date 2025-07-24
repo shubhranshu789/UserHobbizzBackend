@@ -4,7 +4,7 @@ const router = express.Router();
 const multer = require("multer");
 const axios = require("axios");
 // const requireLogin = require("../middleWares/requireLogin");
-const requireLoginUser = require("../middleWares/requireLoginUser");
+const requireLoginUser = require("../../../middleWares/requireLoginUser");
 
 
 const ACTIVITY = mongoose.model("ACTIVITY");

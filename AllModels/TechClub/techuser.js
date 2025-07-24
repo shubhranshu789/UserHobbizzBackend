@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
         require:true
     },
     club:{
-        type:String,
+        type: String,
         require:true
     },
     //add IP
@@ -37,4 +37,4 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-mongoose.model("USER" ,userSchema )
+mongoose.model("TECHUSER" ,userSchema )

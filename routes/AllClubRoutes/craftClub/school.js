@@ -1,20 +1,17 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
-
-const requireLoginUser = require("../middleWares/requireLoginUser");
-
 const DIRECTOR = mongoose.model("DIRECTOR");
-const PRINCIPLE=mongoose.model("PRINCIPLE");
-const EDITOR=mongoose.model("EDITOR");
-const LOCALEVENT= mongoose.model("LOCALEVENT");
-const ARTCLUB = mongoose.model("ARTCLUB");
-const SCHOOL = mongoose.model("SCHOOL");
-const USER = mongoose.model("USER");
+const PRINCIPLE=mongoose.model("CRAFTPRINCIPLE");
+const EDITOR=mongoose.model("CRAFTEDITOR");
+const LOCALEVENT= mongoose.model("CRAFTLOCALEVENT");
+const ARTCLUB = mongoose.model("CRAFTCLUB");
+const SCHOOL = mongoose.model("CRAFTSCHOOL");
+const USER = mongoose.model("CRAFTUSER");
 
 
 // GET /get-school?district=Varanasi&club=artclub
-router.get("/get-school", async (req, res) => {
+router.get("/get-school-craft", async (req, res) => {
   const { district, club } = req.query;
 
   if (!district || !club) {
@@ -40,7 +37,7 @@ router.get("/get-school", async (req, res) => {
 });
 
 // GET /get-students?club=artclub&district=Kanpur&school=St. Xavier's
-router.get("/get-students", async (req, res) => {
+router.get("/get-students-craft", async (req, res) => {
   const { district, school } = req.query;
 
   // Validate required parameters
@@ -69,7 +66,7 @@ router.get("/get-students", async (req, res) => {
 
 
 
-router.get("/get-captain", async (req, res) => {
+router.get("/get-captain-craft", async (req, res) => {
   const { district, club, school } = req.query;
 
   if (!district || !club || !school) {
@@ -92,7 +89,7 @@ router.get("/get-captain", async (req, res) => {
 });
 
 
-router.get("/get-correspondent", async (req, res) => {
+router.get("/get-correspondent-craft", async (req, res) => {
   const { district, club, school } = req.query;
 
   if (!district || !club || !school) {
@@ -115,7 +112,7 @@ router.get("/get-correspondent", async (req, res) => {
 });
 
 
-router.put("/make-captain", async (req, res) => {
+router.put("/make-captain-craft", async (req, res) => {
   const { district, club, school, studentId } = req.body;
 
   if (!district || !club || !school || !studentId) {
@@ -143,7 +140,7 @@ router.put("/make-captain", async (req, res) => {
 
 
 
-router.get("/get-cabinate",async(req,res)=>{
+router.get("/get-cabinate-craft",async(req,res)=>{
   const { district, club, school } = req.query;
   if (!club) {
     return res.status(400).json({ error: "district, club, and school are required" });

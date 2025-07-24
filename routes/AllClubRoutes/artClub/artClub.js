@@ -7,21 +7,21 @@ const jwt = require("jsonwebtoken")
 
 const {Jwt_secret} = require("../../../keys");
 
-const CRAFTCLUBNEWS = mongoose.model("CRAFTCLUBNEWS");
-const CRAFTCLUBJOURNAL = mongoose.model("CRAFTCLUBJOURNAL");
-const CRAFTHERITAGE = mongoose.model("CRAFTHERITAGE");
-const CRAFTCLUBDOMAIN = mongoose.model("CRAFTCLUBDOMAIN");
-const CRAFTGALLERY = mongoose.model("CRAFTGALLERY");
-const CALENDAR = mongoose.model("CRAFTCALENDAR");
-const CRAFTACTIVITY = mongoose.model("CRAFTACTIVITY");
-const CRAFTLEGACY = mongoose.model("CRAFTLEGACY");
+const CLUBNEWS = mongoose.model("CLUBNEWS");
+const CLUBJOURNAL = mongoose.model("CLUBJOURNAL");
+const HERITAGE = mongoose.model("HERITAGE");
+const CLUBDOMAIN = mongoose.model("CLUBDOMAIN");
+const GALLERY = mongoose.model("GALLERY");
+const CALENDAR = mongoose.model("CALENDAR");
+const ACTIVITY = mongoose.model("ACTIVITY");
+const LEGACY = mongoose.model("LEGACY");
 
-const requireLoginUser = require("../../../middleWares/requireLoginCraftUser");
+const requireLoginUser = require("../../../middleWares/requireLoginUser");
 
 
 // ----------------------------------------------------CLUBNEWS--------------------------------------------------------------
 // POST /api/news — Create news
-router.post('/craftclubnews', async (req, res) => {
+router.post('/clubnews', async (req, res) => {
   try {
     const newsData = req.body;
 
@@ -44,9 +44,9 @@ router.post('/craftclubnews', async (req, res) => {
 
 
 
-router.get('/craftclubnewsviewallpost', async (req, res) => {
+router.get('/clubnewsviewallpost', async (req, res) => {
   try {
-    const allNews = await CRAFTCLUBNEWS.find().sort({ publishedAt: -1 }); // Latest first
+    const allNews = await CLUBNEWS.find().sort({ publishedAt: -1 }); // Latest first
     res.status(200).json({
       success: true,
       count: allNews.length,
@@ -62,11 +62,11 @@ router.get('/craftclubnewsviewallpost', async (req, res) => {
 });
 
 
-router.get("/craftartNews/:id", async (req, res) => {
+router.get("/artNews/:id", async (req, res) => {
   try {
     const journalId = req.params.id;
 
-    const journal = await CRAFTCLUBNEWS.findById(journalId);
+    const journal = await CLUBNEWS.findById(journalId);
     if (!journal) {
       return res.status(404).json({ message: "Journal not found" });
     }
@@ -83,11 +83,11 @@ router.get("/craftartNews/:id", async (req, res) => {
 // ------------------------------------------------------------------------------------------------------------------
 
 
-router.post('/craftclubjournal', async (req, res) => {
+router.post('/clubjournal', async (req, res) => {
   try {
     const newsData = req.body;
 
-    const newNews = new CRAFTCLUBJOURNAL(newsData);
+    const newNews = new CLUBJOURNAL(newsData);
     await newNews.save();
 
     res.status(201).json({
@@ -105,9 +105,9 @@ router.post('/craftclubjournal', async (req, res) => {
 });
 
 
-router.get('/craftclubjpurnalviewallpost', async (req, res) => {
+router.get('/clubjpurnalviewallpost', async (req, res) => {
   try {
-    const allNews = await CRAFTCLUBJOURNAL.find().sort({ publishedAt: -1 }); // Latest first
+    const allNews = await CLUBJOURNAL.find().sort({ publishedAt: -1 }); // Latest first
     res.status(200).json({
       success: true,
       count: allNews.length,
@@ -123,11 +123,11 @@ router.get('/craftclubjpurnalviewallpost', async (req, res) => {
 });
 
 
-router.get("/craftartJouranls/:id", async (req, res) => {
+router.get("/artJouranls/:id", async (req, res) => {
   try {
     const journalId = req.params.id;
 
-    const journal = await CRAFTCLUBJOURNAL.findById(journalId);
+    const journal = await CLUBJOURNAL.findById(journalId);
     if (!journal) {
       return res.status(404).json({ message: "Journal not found" });
     }
@@ -144,12 +144,12 @@ router.get("/craftartJouranls/:id", async (req, res) => {
 
 
 // ----------------------------------------------------HERITAGE---------------------------------------------------------------------
-router.post('/craftheritage', async (req, res) => {
+router.post('/heritage', async (req, res) => {
   try {
     const { title, category, origin, imageUrl, description, period, tags } = req.body;
 
     // Create new document
-    const newEntry = new CRAFTHERITAGE({
+    const newEntry = new HERITAGE({
       title,
       category,
       origin,
@@ -177,9 +177,9 @@ router.post('/craftheritage', async (req, res) => {
 
 
 
-router.get('/craftheritagegetallpost', async (req, res) => {
+router.get('/heritagegetallpost', async (req, res) => {
   try {
-    const hallOfFame = await CRAFTHERITAGE.find().sort({ publishedAt: -1 }); // Latest first
+    const hallOfFame = await HERITAGE.find().sort({ publishedAt: -1 }); // Latest first
     res.status(200).json({
       success: true,
       count: hallOfFame.length,
@@ -195,11 +195,11 @@ router.get('/craftheritagegetallpost', async (req, res) => {
 });
 
 
-router.get("/craftartHeritage/:id", async (req, res) => {
+router.get("/artHeritage/:id", async (req, res) => {
   try {
     const journalId = req.params.id;
 
-    const journal = await CRAFTHERITAGE.findById(journalId);
+    const journal = await HERITAGE.findById(journalId);
     if (!journal) {
       return res.status(404).json({ message: "Journal not found" });
     }
@@ -218,11 +218,11 @@ router.get("/craftartHeritage/:id", async (req, res) => {
 
 
 // -------------------------------------------------------------------------------------------------------------------------
-router.post('/craftclubdomain', async (req, res) => {
+router.post('/clubdomain', async (req, res) => {
   try {
     const newsData = req.body;
 
-    const newNews = new CRAFTCLUBDOMAIN(newsData);
+    const newNews = new CLUBDOMAIN(newsData);
     await newNews.save();
 
     res.status(201).json({
@@ -240,9 +240,9 @@ router.post('/craftclubdomain', async (req, res) => {
 });
 
 
-router.get('/craftclubdomainviewallpost', async (req, res) => {
+router.get('/clubdomainviewallpost', async (req, res) => {
   try {
-    const allNews = await CRAFTCLUBDOMAIN.find().sort({ publishedAt: -1 }); // Latest first
+    const allNews = await CLUBDOMAIN.find().sort({ publishedAt: -1 }); // Latest first
     res.status(200).json({
       success: true,
       count: allNews.length,
@@ -265,14 +265,14 @@ router.get('/craftclubdomainviewallpost', async (req, res) => {
 // -----------------------------------------GALLERY-----------------------------------------------------------
 
 
-router.post('/craftgallerypost', async (req, res) => {
+router.post('/gallerypost', async (req, res) => {
   try {
     const { title, imageUrl } = req.body;
     if (!title || !imageUrl) {
       return res.status(400).json({ error: "Title and imageUrl are required!" });
     }
 
-    const newImage = new CRAFTGALLERY({ title, imageUrl });
+    const newImage = new GALLERY({ title, imageUrl });
     await newImage.save();
 
     res.status(201).json({ message: "Image added successfully!", data: newImage });
@@ -282,9 +282,9 @@ router.post('/craftgallerypost', async (req, res) => {
 });
 
 //  GET: API FOR IMAGE GALLERY
-router.get('/craftviewgallerypost', async (req, res) => {
+router.get('/viewgallerypost', async (req, res) => {
   try {
-    const images = await  CRAFTGALLERY.find().sort({ createdAt: -1 }); // latest first
+    const images = await  GALLERY.find().sort({ createdAt: -1 }); // latest first
     res.status(200).json(images);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -328,9 +328,9 @@ router.delete('/api/events/by-date/:date', async (req, res) => {
 // ------------------------------------------------------------------------------------------------------------
 
 
-router.get("/crafthall-of-fame", async (req, res) => {
+router.get("/hall-of-fame", async (req, res) => {
   try {
-    const activities = await CRAFTACTIVITY.find({})
+    const activities = await ACTIVITY.find({})
       .populate("uploads.uploadedBy", "name email"); // 👈 this adds user name/email
 
     const hallOfFameUploads = [];
@@ -361,12 +361,12 @@ router.get("/crafthall-of-fame", async (req, res) => {
 
 
 
-router.post('/craftLEGACY', async (req, res) => {
+router.post('/LEGACY', async (req, res) => {
   try {
     const { title, category, origin, imageUrl, description, period, tags } = req.body;
 
     // Create new document
-    const newEntry = new CRAFTLEGACY({
+    const newEntry = new LEGACY({
       title,
       category,
       origin,
@@ -394,9 +394,9 @@ router.post('/craftLEGACY', async (req, res) => {
 
 
 // GET: API FOR HALL OF FAME
-router.get('/craftLEGACYgetallpost', async (req, res) => {
+router.get('/LEGACYgetallpost', async (req, res) => {
   try {
-    const hallOfFame = await CRAFTLEGACY.find().sort({ publishedAt: -1 }); // Latest first
+    const hallOfFame = await LEGACY.find().sort({ publishedAt: -1 }); // Latest first
     res.status(200).json({
       success: true,
       count: hallOfFame.length,
@@ -412,11 +412,11 @@ router.get('/craftLEGACYgetallpost', async (req, res) => {
 });
 
 
-router.get("/craftartLEGACY/:id", async (req, res) => {
+router.get("/artLEGACY/:id", async (req, res) => {
   try {
     const journalId = req.params.id;
 
-    const journal = await CRAFTLEGACY.findById(journalId);
+    const journal = await LEGACY.findById(journalId);
     if (!journal) {
       return res.status(404).json({ message: "Journal not found" });
     }

@@ -2,24 +2,40 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
 
-const requireLoginUser = require("../middleWares/requireLoginUser");
 
 const DIRECTOR = mongoose.model("DIRECTOR");
 const LOCALEVENT= mongoose.model("LOCALEVENT");
+const CRAFTLOCALEVENT= mongoose.model("CRAFTLOCALEVENT");
+const TECHLOCALEVENT= mongoose.model("TECHLOCALEVENT");
+
 const ARTCLUB = mongoose.model("ARTCLUB");
-const CABINATE = mongoose.model("CABINATE");
+const CRAFTCLUB = mongoose.model("CRAFTCLUB");
+const TECHCLUB = mongoose.model("TECHCLUB");
 
 
 // GET /get-chapter?club=artclub&district=Varanasi
 router.get("/get-events", async (req, res) => {
+  const eventModels = {
+  "artclub": LOCALEVENT,
+  "craftclub": CRAFTLOCALEVENT,
+  "techclub": TECHLOCALEVENT
+};
   try {
     const { club, district } = req.query;
+
 
     const query = {};
     if (club) query.club = club;
     if (district) query.district = district;
 
-    const events = await LOCALEVENT.find(query)
+    // Select club model dynamically
+    const EventModel = eventModels[club];
+
+    if (!EventModel) {
+      return res.status(400).json({ message: `Invalid club type: ${club}` });
+    } 
+
+    const events = await EventModel.find(query)
       .populate("director", "name email")
       .populate("head", "name email")
       .sort({ createdAt: -1 }); // newest first
@@ -55,11 +71,17 @@ router.get("/get-events", async (req, res) => {
 
 
 
-router.post("/create-event", requireLoginUser, async (req, res) => {
+router.post("/create-event", async (req, res) => {
   const clubModels = {
-    "artclub": ARTCLUB
+    "artclub": ARTCLUB,
+    "craftclub": CRAFTCLUB,
+    "techclub": TECHCLUB
   };
-
+  const eventModels = {
+    "artclub": LOCALEVENT,
+    "craftclub": CRAFTLOCALEVENT,
+    "techclub": TECHLOCALEVENT
+  };
 
   try {
     const { title, description, date, venue, club, district, status, image } = req.body;
@@ -70,7 +92,7 @@ router.post("/create-event", requireLoginUser, async (req, res) => {
     }
 
     // Fetch Director based on club
-    const director = await DIRECTOR.findOne({ clubName: club });
+    const director = await DIRECTOR.findOne({ club: club });
     if (!director) {
       return res.status(404).json({ message: `Director not found for club: ${club}` });
     }
@@ -83,16 +105,20 @@ router.post("/create-event", requireLoginUser, async (req, res) => {
     } 
 
     // Fetch Art Club for given district and club
-    const artClub = await ClubModel.findOne({ district });
-    if (!artClub) {
+    const Club = await ClubModel.findOne({ district });
+    if (!Club) {
       return res.status(403).json({ message: `Art club not found for district: ${district}` });
     }
 
-    const head = artClub.head;
+    const head = Club.head;
     
+    const EventModel = eventModels[club];
+    if (!EventModel) {
+      return res.status(400).json({ message: `Invalid club type: ${club}` });
+    } 
 
     // Create new Event
-    const newEvent = new LOCALEVENT({
+    const newEvent = new EventModel({
       title,
       image,
       description,
@@ -119,14 +145,23 @@ router.post("/create-event", requireLoginUser, async (req, res) => {
 
 // DELETE Event by ID
 router.delete("/delete-event/", async (req, res) => {
+  const eventModels = {
+    "artclub": LOCALEVENT,
+    "craftclub": CRAFTLOCALEVENT,
+    "techclub": TECHLOCALEVENT
+  };
+  
   const eventId = req.query.eventId;
+  const club = req.query.club;
 
   if (!eventId) {
     return res.status(400).json({ error: "Event ID is required" });
   }
 
+  const EventModel = eventModels[club];
+
   try {
-    const deletedEvent = await LOCALEVENT.findByIdAndDelete(eventId);
+    const deletedEvent = await EventModel.findByIdAndDelete(eventId);
 
     if (!deletedEvent) {
       return res.status(404).json({ error: "Event not found" });
@@ -142,7 +177,15 @@ router.delete("/delete-event/", async (req, res) => {
 
 
 router.get("/event-details", async (req, res) => {
+
+  const eventModels = {
+    "artclub": LOCALEVENT,
+    "craftclub": CRAFTLOCALEVENT,
+    "techclub": TECHLOCALEVENT
+  };
+
   const event_id = req.query.event_id;
+  const club = req.query.club;
 
   try {
     if (!event_id) {
@@ -153,7 +196,13 @@ router.get("/event-details", async (req, res) => {
       return res.status(400).json({ error: "Invalid event_id format" });
     }
 
-    const event = await LOCALEVENT.findById(event_id)
+    const EventModel= eventModels[club];
+
+    if (!EventModel) {
+      return res.status(400).json({ error: `Invalid club type: ${club}` });
+    }
+
+    const event = await EventModel.findById(event_id)
       .populate("head", "name email phone position")
       .populate("director", "name email phone position");
 
