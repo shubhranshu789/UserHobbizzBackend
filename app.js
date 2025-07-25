@@ -6,30 +6,30 @@ const port = 5000;
 const app = express();
 
 app.use(cors())
+
+
+
+// --------------------------------------------------------ArtClub-------------------------------------------------------------------
 // All Models Database
 require('./AllModels/ArtClub/user')
+require('./AllModels/ArtClub/art/clubNews')
+require('./AllModels/ArtClub/art/addActivity')
+require('./AllModels/ArtClub/art/addCompitition')
+require('./AllModels/ArtClub/art/journal')
+require('./AllModels/ArtClub/art/clubDomain')
+require('./AllModels/ArtClub/art/clubGallery')
+require('./AllModels/ArtClub/art/clubHeritage')
 require('./AllModels/ArtClub/calender')
-require('./AllModels/ArtClub/principle')
 require('./AllModels/ArtClub/director')
+require('./AllModels/ArtClub/principle')
 require('./AllModels/ArtClub/editor')
+require('./AllModels/ArtClub/art/judge')
 require('./AllModels/ArtClub/localEvent')
 require('./AllModels/ArtClub/cabinate')
 require('./AllModels/ArtClub/school')
 require('./AllModels/ArtClub/art/artClubs')
 require('./AllModels/ArtClub/art/clublegacy')
-require('./AllModels/ArtClub/art/clubNews')
-require('./AllModels/ArtClub/art/addActivity')
-require('./AllModels/ArtClub/art/addCompitition')
-require('./AllModels/ArtClub/art/judge')
-require('./AllModels/ArtClub/art/journal')
-require('./AllModels/ArtClub/art/clubDomain')
-require('./AllModels/ArtClub/art/clubGallery')
-require('./AllModels/ArtClub/art/clubHeritage')
 
-
-
-// ------------------------------------------------------DanceClub-------------------------------------------------------------------
-require('./Model/danceClub/danceClubNews')
 
 
 
@@ -67,16 +67,13 @@ require('./AllModels/TechClub/techuser')
 require('./AllModels/TechClub/tech/techaddActivity')
 require('./AllModels/TechClub/tech/techaddCompitition')
 require('./AllModels/TechClub/tech/techClubs')
-require('./AllModels/TechClub/tech/techclubDomain')
-require('./AllModels/TechClub/tech/techclubGallery')
-require('./AllModels/TechClub/tech/techclubHeritage')
-require('./AllModels/TechClub/tech/techclubNews')
-require('./AllModels/TechClub/tech/techclublegacy')
-require('./AllModels/TechClub/tech/techjournal')
+require('./AllModels/TechClub/tech/techClubDomain')
+require('./AllModels/TechClub/tech/techClubGallery')
+require('./AllModels/TechClub/tech/techClubHeritage')
+require('./AllModels/TechClub/tech/techClubNews')
+require('./AllModels/TechClub/tech/techClublegacy')
+require('./AllModels/TechClub/tech/techJournal')
 require('./AllModels/TechClub/tech/techjudge')
-
-
-
 
 
 // All APIs
@@ -103,7 +100,7 @@ app.use(require('./routes/AllClubRoutes/techClub/school'))
 app.use(require('./routes/AllClubRoutes/techClub/techClub'))
 
 
-app.use(require('./routes/danceClub'))
+// app.use(require('./routes/danceClub'))
 app.use(require('./routes/chapter'))
 
 
