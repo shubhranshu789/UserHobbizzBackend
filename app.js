@@ -99,6 +99,7 @@ app.use(require('./routes/AllClubRoutes/craftClub/school'))
 app.use(require('./routes/AllClubRoutes/techClub/activity'))
 app.use(require('./routes/AllClubRoutes/techClub/auth'))
 app.use(require('./routes/AllClubRoutes/techClub/compitition'))
+app.use(require('./routes/AllClubRoutes/techClub/school'))
 app.use(require('./routes/AllClubRoutes/techClub/techClub'))
 
 
