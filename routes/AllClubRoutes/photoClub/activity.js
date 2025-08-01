@@ -4,14 +4,14 @@ const router = express.Router();
 const multer = require("multer");
 const axios = require("axios");
 
-const requireLogin = require("../../../middleWares/requireLoginTechUser");
+const requireLogin = require("../../../middleWares/requireLoginUser");
 
 // const CABINATE = mongoose.model("CABINATE");
-const TECHACTIVITY = mongoose.model("TECHACTIVITY");
-const USER = mongoose.model("TECHUSER");
+const TECHACTIVITY = mongoose.model("PHOTOACTIVITY");
+const USER = mongoose.model("USER");
 
 
-router.post("/techcreate-activity", requireLogin, async (req, res) => {
+router.post("/photocreate-activity", requireLogin, async (req, res) => {
   const { title, desc, pic, category } = req.body;
 
   if (!title || !desc || !pic || !category) {
@@ -29,11 +29,11 @@ router.post("/techcreate-activity", requireLogin, async (req, res) => {
 
     const savedEvent = await event.save();
 
-    await TECHCLUB.findByIdAndUpdate(
-      "684a8c32d27f1ad8681187d0",
-      { $push: { activities: savedEvent._id } },
-      { new: true }
-    );
+    // await TECHCLUB.findByIdAndUpdate(
+    //   "684a8c32d27f1ad8681187d0",
+    //   { $push: { activities: savedEvent._id } },
+    //   { new: true }
+    // );
 
     res.json({ event: savedEvent });
   } catch (err) {
@@ -43,14 +43,14 @@ router.post("/techcreate-activity", requireLogin, async (req, res) => {
 });
 
 
-router.get("/techallActivities", (req, res) => {
+router.get("/photoallActivities", (req, res) => {
   TECHACTIVITY.find().then((events) => {
     res.json(events);
   });
 });
 
 
-router.get("/techgetactivity/:activityid", (req, res) => {
+router.get("/photogetactivity/:activityid", (req, res) => {
   TECHACTIVITY.findOne({ _id: req.params.activityid })
     .then(activity => {
       // console.log(activity)
@@ -60,7 +60,7 @@ router.get("/techgetactivity/:activityid", (req, res) => {
 
 
 
-router.post("/techregister-activity/:activityId", requireLogin, async (req, res) => {
+router.post("/photoregister-activity/:activityId", requireLogin, async (req, res) => {
   const userId = req.user._id;
   const { activityId } = req.params;
 
@@ -88,7 +88,7 @@ router.post("/techregister-activity/:activityId", requireLogin, async (req, res)
 
 
 
-router.post("/techunregister-activity/:activityId", requireLogin, async (req, res) => {
+router.post("/photounregister-activity/:activityId", requireLogin, async (req, res) => {
   const userId = req.user._id;
   const { activityId } = req.params;
 
@@ -112,7 +112,7 @@ router.post("/techunregister-activity/:activityId", requireLogin, async (req, re
 });
 
 
-router.post("/techupload-photo/:eventId", requireLogin, async (req, res) => {
+router.post("/photoupload-photo/:eventId", requireLogin, async (req, res) => {
   try {
     const { pic } = req.body;
     const userId = req.user._id.toString();
@@ -145,7 +145,7 @@ router.post("/techupload-photo/:eventId", requireLogin, async (req, res) => {
   }
 });
 
-router.get("/techhas-uploaded/:eventId", requireLogin, async (req, res) => {
+router.get("/photohas-uploaded/:eventId", requireLogin, async (req, res) => {
   const userId = req.user._id.toString();
   const eventId = req.params.eventId;
 
@@ -161,7 +161,7 @@ router.get("/techhas-uploaded/:eventId", requireLogin, async (req, res) => {
 
 
 
-router.get("/techevent-participants/:eventId", requireLogin, async (req, res) => {
+router.get("/photoevent-participants/:eventId", requireLogin, async (req, res) => {
   try {
     const event = await TECHACTIVITY.findById(req.params.eventId);
     if (!event) return res.status(404).json({ error: "Event not found" });
@@ -193,7 +193,7 @@ router.get("/techevent-participants/:eventId", requireLogin, async (req, res) =>
   }
 });
 
-router.get("/techevent-participants-user/:eventId", requireLogin, async (req, res) => {
+router.get("/photoevent-participants-user/:eventId", requireLogin, async (req, res) => {
   try {
     const event = await TECHACTIVITY.findById(req.params.eventId);
     if (!event) return res.status(404).json({ error: "Event not found" });
@@ -237,7 +237,7 @@ router.get("/techevent-participants-user/:eventId", requireLogin, async (req, re
 
 
 // PUT request to approve an uploaded image
-router.put("/techactivity/approve-upload/:activityId/:uploadId", async (req, res) => {
+router.put("/photoactivity/approve-upload/:activityId/:uploadId", async (req, res) => {
   const { activityId, uploadId } = req.params;
 
   try {
@@ -264,7 +264,7 @@ router.put("/techactivity/approve-upload/:activityId/:uploadId", async (req, res
 });
 
 
-router.put("/techactivity/disapprove-upload/:activityId/:uploadId", async (req, res) => {
+router.put("/photoactivity/disapprove-upload/:activityId/:uploadId", async (req, res) => {
   const { activityId, uploadId } = req.params;
 
   try {
@@ -287,7 +287,7 @@ router.put("/techactivity/disapprove-upload/:activityId/:uploadId", async (req, 
 
 
 
-router.get("/techactivity/approved-uploads/:eventId", async (req, res) => {
+router.get("/photoactivity/approved-uploads/:eventId", async (req, res) => {
   try {
     const { eventId } = req.params;
 
@@ -335,7 +335,7 @@ router.get("/techactivity/approved-uploads/:eventId", async (req, res) => {
 
 
 
-router.put("/techactivity/approve-halloffame/:activityId/:uploadId", async (req, res) => {
+router.put("/photoactivity/approve-halloffame/:activityId/:uploadId", async (req, res) => {
   const { activityId, uploadId } = req.params;
 
   try {
@@ -362,7 +362,7 @@ router.put("/techactivity/approve-halloffame/:activityId/:uploadId", async (req,
 });
 
 
-router.put("/techactivity/disapprove-halloffame/:activityId/:uploadId", async (req, res) => {
+router.put("/photoactivity/disapprove-halloffame/:activityId/:uploadId", async (req, res) => {
   const { activityId, uploadId } = req.params;
 
   try {
@@ -385,7 +385,7 @@ router.put("/techactivity/disapprove-halloffame/:activityId/:uploadId", async (r
 
 
 
-router.get("/techactivity/hallOfFamePosts/:eventId", async (req, res) => {
+router.get("/photoactivity/hallOfFamePosts/:eventId", async (req, res) => {
   try {
     const { eventId } = req.params;
 

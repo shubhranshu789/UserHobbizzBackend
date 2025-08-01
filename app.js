@@ -76,6 +76,36 @@ require('./AllModels/TechClub/tech/techJournal')
 require('./AllModels/TechClub/tech/techjudge')
 
 
+//---------------------------------------------------------PhotoClub-------------------------------------------------------------------
+require('./AllModels/PhtoCub/techcabinate')
+require('./AllModels/PhtoCub/techcalender')
+require('./AllModels/PhtoCub/techdirector')
+require('./AllModels/PhtoCub/techeditor')
+require('./AllModels/PhtoCub/techlocalevent')
+require('./AllModels/PhtoCub/techprinciple')
+require('./AllModels/PhtoCub/techschool')
+require('./AllModels/PhtoCub/techuser')
+require('./AllModels/PhtoCub/photo/techClubDomain')
+require('./AllModels/PhtoCub/photo/techClubGallery')
+require('./AllModels/PhtoCub/photo/techClubHeritage')
+require('./AllModels/PhtoCub/photo/techClubNews')
+require('./AllModels/PhtoCub/photo/techClublegacy')
+require('./AllModels/PhtoCub/photo/techClubs')
+require('./AllModels/PhtoCub/photo/techJournal')
+require('./AllModels/PhtoCub/photo/techaddActivity')
+require('./AllModels/PhtoCub/photo/techaddCompitition')
+require('./AllModels/PhtoCub/photo/techjudge')
+
+
+
+
+
+
+
+
+
+
+
 // All APIs
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -91,6 +121,16 @@ app.use(require('./routes/AllClubRoutes/craftClub/auth'))
 app.use(require('./routes/AllClubRoutes/craftClub/compitition'))
 app.use(require('./routes/AllClubRoutes/craftClub/craft'))
 app.use(require('./routes/AllClubRoutes/craftClub/school'))
+
+
+
+app.use(require('./routes/AllClubRoutes/photoClub/activity'))
+app.use(require('./routes/AllClubRoutes/photoClub/auth'))
+app.use(require('./routes/AllClubRoutes/photoClub/compitition'))
+app.use(require('./routes/AllClubRoutes/photoClub/school'))
+app.use(require('./routes/AllClubRoutes/photoClub/photoClub'))
+
+
 
 
 app.use(require('./routes/AllClubRoutes/techClub/activity'))

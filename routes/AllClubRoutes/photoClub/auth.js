@@ -12,7 +12,7 @@ const {Jwt_secret} = require("../../../keys");
 
 
 
-router.post("/craftsignup" , (req,res)=> {
+router.post("/photosignup" , (req,res)=> {
     const {name , password ,email , state , district , school , club} = req.body;
     const ip = req.headers['cf-connecting-ip'] ||
                 req.headers['x-real-ip'] ||
@@ -53,7 +53,7 @@ router.post("/craftsignup" , (req,res)=> {
 
 
 
-router.post("/craftsignin" , (req , res) => {
+router.post("/photosignin" , (req , res) => {
     const {email , password} = req.body;
 
     if(!email || !password){

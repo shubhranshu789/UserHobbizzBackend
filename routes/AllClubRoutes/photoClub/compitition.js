@@ -7,18 +7,18 @@ const axios = require("axios");
 const requireLoginUser = require("../../../middleWares/requireLoginUser");
 
 // const CABINATE = mongoose.model("CABINATE");
-const ACTIVITY = mongoose.model("TECHACTIVITY");
+const ACTIVITY = mongoose.model("PHOTOACTIVITY");
 const USER = mongoose.model("USER");
 // const DIRECTOR = mongoose.model("DIRECTOR");
 // const ARTCLUB = mongoose.model("ARTCLUB");
-const COMPITITION = mongoose.model("TECHCOMPITITION");
+const COMPITITION = mongoose.model("PHOTOCOMPITITION");
 
 
 
 
 
 
-router.get("/techallCompitition", async (req, res) => {
+router.get("/photoallCompitition", async (req, res) => {
   try {
     const liveEvents = await COMPITITION.find({ isLive: true });
     res.status(200).json(liveEvents);
@@ -29,7 +29,7 @@ router.get("/techallCompitition", async (req, res) => {
 });
 
 
-router.get("/techgetCompitition/:compititionid", (req, res) => {
+router.get("/photogetCompitition/:compititionid", (req, res) => {
   COMPITITION.findOne({ _id: req.params.compititionid })
     .then(activity => {
       // console.log(activity)
@@ -40,7 +40,7 @@ router.get("/techgetCompitition/:compititionid", (req, res) => {
 
 
 
-router.put("/techactivity/set-live/:activityID", async (req, res) => {
+router.put("/photoactivity/set-live/:activityID", async (req, res) => {
   try {
     const activityId = req.params.activityID;
     const { isLive } = req.body;
@@ -74,7 +74,7 @@ router.put("/techactivity/set-live/:activityID", async (req, res) => {
 
 
 
-router.post("/techregister-compitition/:activityId", requireLoginUser, async (req, res) => {
+router.post("/photoregister-compitition/:activityId", requireLoginUser, async (req, res) => {
   const userId = req.user._id;
   const { activityId } = req.params;
 
@@ -102,7 +102,7 @@ router.post("/techregister-compitition/:activityId", requireLoginUser, async (re
 
 
 
-router.post("/techunregister-compitition/:activityId", requireLoginUser, async (req, res) => {
+router.post("/photounregister-compitition/:activityId", requireLoginUser, async (req, res) => {
   const userId = req.user._id;
   const { activityId } = req.params;
 
@@ -126,7 +126,7 @@ router.post("/techunregister-compitition/:activityId", requireLoginUser, async (
 });
 
 
-router.post("/techupload-photo-compitition/:eventId", requireLoginUser, async (req, res) => {
+router.post("/photoupload-photo-compitition/:eventId", requireLoginUser, async (req, res) => {
   try {
     const { pic } = req.body;
     const userId = req.user._id.toString();
@@ -159,7 +159,7 @@ router.post("/techupload-photo-compitition/:eventId", requireLoginUser, async (r
   }
 });
 
-router.get("/techhas-uploaded-compitition/:eventId", requireLoginUser, async (req, res) => {
+router.get("/photohas-uploaded-compitition/:eventId", requireLoginUser, async (req, res) => {
   const userId = req.user._id.toString();
   const eventId = req.params.eventId;
 
@@ -174,7 +174,7 @@ router.get("/techhas-uploaded-compitition/:eventId", requireLoginUser, async (re
 });
 
 
-router.get("/techevent-participants-compi/:eventId", requireLoginUser, async (req, res) => {
+router.get("/photoevent-participants-compi/:eventId", requireLoginUser, async (req, res) => {
   try {
     const event = await COMPITITION.findById(req.params.eventId);
     if (!event) return res.status(404).json({ error: "Event not found" });
@@ -211,7 +211,7 @@ router.get("/techevent-participants-compi/:eventId", requireLoginUser, async (re
 
 
 
-router.get("/techcompetitions/:id", async (req, res) => {
+router.get("/photocompetitions/:id", async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
