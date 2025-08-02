@@ -4,11 +4,11 @@ const router = express.Router();
 const multer = require("multer");
 const axios = require("axios");
 
-const requireLogin = require("../../../middleWares/requireLoginUser");
+const requireLogin = require("../../../middleWares/requireLoginPhotoUser");
 
 // const CABINATE = mongoose.model("CABINATE");
 const TECHACTIVITY = mongoose.model("PHOTOACTIVITY");
-const USER = mongoose.model("USER");
+const USER = mongoose.model("PHOTOUSER");
 
 
 router.post("/photocreate-activity", requireLogin, async (req, res) => {

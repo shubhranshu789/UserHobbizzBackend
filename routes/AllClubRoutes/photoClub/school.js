@@ -6,7 +6,7 @@ const PRINCIPLE=mongoose.model("PHOTOPRINCIPLE");
 const EDITOR=mongoose.model("PHOTOEDITOR");
 const ARTCLUB = mongoose.model("PHOTOCLUB");
 const SCHOOL = mongoose.model("PHOTOSCHOOL");
-const USER = mongoose.model("USER");
+const USER = mongoose.model("PHOTOUSER");
 
 
 // GET /get-school?district=Varanasi&club=artclub

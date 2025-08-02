@@ -4,11 +4,11 @@ const router = express.Router();
 const multer = require("multer");
 const axios = require("axios");
 // const requireLogin = require("../middleWares/requireLogin");
-const requireLoginUser = require("../../../middleWares/requireLoginUser");
+const requireLoginUser = require("../../../middleWares/requireLoginPhotoUser");
 
 // const CABINATE = mongoose.model("CABINATE");
 const ACTIVITY = mongoose.model("PHOTOACTIVITY");
-const USER = mongoose.model("USER");
+const USER = mongoose.model("PHOTOUSER");
 // const DIRECTOR = mongoose.model("DIRECTOR");
 // const ARTCLUB = mongoose.model("ARTCLUB");
 const COMPITITION = mongoose.model("PHOTOCOMPITITION");
