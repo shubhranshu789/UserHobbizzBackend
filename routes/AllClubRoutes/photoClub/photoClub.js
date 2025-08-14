@@ -16,7 +16,6 @@ const CALENDAR = mongoose.model("PHOTOCALENDAR");
 const ACTIVITY = mongoose.model("PHOTOACTIVITY");
 const LEGACY = mongoose.model("PHOTOLEGACY");
 
-const requireLoginUser = require("../../../middleWares/requireLoginUser");
 
 
 // ----------------------------------------------------CLUBNEWS--------------------------------------------------------------

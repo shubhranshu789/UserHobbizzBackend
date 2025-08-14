@@ -6,7 +6,7 @@ const bcryptjs = require('bcryptjs');
 const jwt = require("jsonwebtoken")
 
 
-const USER = mongoose.model("USER");
+const USER = mongoose.model("PHOTOUSER");
 const {Jwt_secret} = require("../../../keys");
 
 
