@@ -79,26 +79,40 @@ router.post("/techregister-compitition/:activityId", requireLoginUser, async (re
   const { activityId } = req.params;
 
   try {
+    // 1️⃣ Find the competition
     const activity = await COMPITITION.findById(activityId);
-
     if (!activity) {
       return res.status(404).json({ error: "Activity not found" });
     }
 
+    // 2️⃣ Find the logged-in user
+    const user = await USER.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
 
+    // 3️⃣ Allow if either main club is techclub OR joinedClubs contains techclub
+    if (user.club !== "techclub" && !user.joinedClubs.includes("techclub")) {
+      return res.status(403).json({ message: "You must be in the tech club before registering for this competition" });
+    }
+
+    // 4️⃣ Prevent duplicate registration
     if (activity.Registrations.includes(userId)) {
       return res.status(400).json({ message: "Already registered" });
     }
 
+    // 5️⃣ Register the user
     activity.Registrations.push(userId);
     await activity.save();
 
     res.status(200).json({ message: "Successfully registered", activity });
+
   } catch (err) {
     console.error("Registration error:", err);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 
 
 

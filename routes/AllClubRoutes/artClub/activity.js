@@ -58,28 +58,32 @@ router.get("/getactivity/:activityid", (req, res) => {
 router.post("/register-activity/:activityId", requireLoginUser, async (req, res) => {
   const userId = req.user._id;
   const { activityId } = req.params;
-
   try {
     const activity = await ACTIVITY.findById(activityId);
-
     if (!activity) {
       return res.status(404).json({ error: "Activity not found" });
     }
-
-
+    const user = await USER.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    if (user.club !== "artclub" && !user.joinedClubs.includes("artclub")) {
+      return res.status(403).json({ message: "You must be in the art club before registering for this activity" });
+    }
     if (activity.Registrations.includes(userId)) {
       return res.status(400).json({ message: "Already registered" });
     }
-
     activity.Registrations.push(userId);
     await activity.save();
 
     res.status(200).json({ message: "Successfully registered", activity });
+
   } catch (err) {
     console.error("Registration error:", err);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 
 
 

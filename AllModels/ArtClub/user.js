@@ -34,7 +34,10 @@ const userSchema = new mongoose.Schema({
     ip:{
         type: String,
         require:true
-    }
+    },
+     joinedClubs: [{
+        type: String
+    }]
 })
 
 mongoose.model("USER" ,userSchema )

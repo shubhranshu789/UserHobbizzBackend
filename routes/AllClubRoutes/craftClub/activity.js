@@ -61,26 +61,40 @@ router.post("/craftregister-activity/:activityId", requireLoginUser, async (req,
   const { activityId } = req.params;
 
   try {
+    // 1️⃣ Find the activity
     const activity = await CRAFTACTIVITY.findById(activityId);
-
     if (!activity) {
       return res.status(404).json({ error: "Activity not found" });
     }
 
+    // 2️⃣ Find the user
+    const user = await USER.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
 
+    // 3️⃣ Check if the user has joined the craftclub
+    if (user.club !== "craftclub" && !user.joinedClubs.includes("craftclub")) {
+      return res.status(403).json({ message: "You must be in the art club before registering for this activity" });
+    }
+
+    // 4️⃣ Prevent duplicate registration
     if (activity.Registrations.includes(userId)) {
       return res.status(400).json({ message: "Already registered" });
     }
 
+    // 5️⃣ Add the registration
     activity.Registrations.push(userId);
     await activity.save();
 
     res.status(200).json({ message: "Successfully registered", activity });
+
   } catch (err) {
     console.error("Registration error:", err);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 
 
 

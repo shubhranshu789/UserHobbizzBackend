@@ -12,73 +12,168 @@ const {Jwt_secret} = require("../../../keys");
 
 
 
-router.post("/signup" , (req,res)=> {
-    const {name , password ,email , state , district , school , club} = req.body;
+// router.post("/signup" , (req,res)=> {
+//     const {name , password ,email , state , district , school , club} = req.body;
+//     const ip = req.headers['cf-connecting-ip'] ||
+//                 req.headers['x-real-ip'] ||
+//                 req.headers['x-forwarded-for'] ||
+//                 req.socket.remoteAddress || '' ;
+
+
+//     if(!name ||!password ||!email || !state || !district || !school || !club){
+//         return res.status(422).json({error : "Please add all the fields"})
+//     }
+
+//     USER.findOne({$or : [{email : email} ]}).then((savedUser) => {
+//         if(savedUser){
+//             return res.status(422).json({error : "user already exist with that email or userName"})
+//         }
+
+
+//         bcryptjs.hash(password , 12).then((hashedPassword) => {
+//             const teacher = new USER ({
+//                 name , 
+//                 email,    
+//                 password:hashedPassword, //hiding password,
+//                 ip,
+//                 school,
+//                 district,
+//                 state,
+//                 club
+//             })
+        
+//             teacher.save()
+//             .then(teacher => {res.json({message : "Data Saved"})})
+//             .catch(err => {console.log(err)})
+//         })
+//     })
+// })
+
+
+router.post("/signup", (req, res) => {
+    const { name, password, email, state, district, school, club } = req.body;
     const ip = req.headers['cf-connecting-ip'] ||
-                req.headers['x-real-ip'] ||
-                req.headers['x-forwarded-for'] ||
-                req.socket.remoteAddress || '' ;
+        req.headers['x-real-ip'] ||
+        req.headers['x-forwarded-for'] ||
+        req.socket.remoteAddress || '';
 
-
-    if(!name ||!password ||!email || !state || !district || !school || !club){
-        return res.status(422).json({error : "Please add all the fields"})
+    if (!name || !password || !email || !state || !district || !school || !club) {
+        return res.status(422).json({ error: "Please add all the fields" });
     }
 
-    USER.findOne({$or : [{email : email} ]}).then((savedUser) => {
-        if(savedUser){
-            return res.status(422).json({error : "user already exist with that email or userName"})
+    USER.findOne({ email: email }).then((savedUser) => {
+        if (savedUser) {
+            // If the signup can be attempted on an existing user (depending on your logic)
+            if (savedUser.joinedClubs && savedUser.joinedClubs.includes(club)) {
+                return res.status(400).json({ error: "User already joined this club" });
+            }
+            return res.status(422).json({ error: "User already exists with that email" });
         }
 
-
-        bcryptjs.hash(password , 12).then((hashedPassword) => {
-            const teacher = new USER ({
-                name , 
-                email,    
-                password:hashedPassword, //hiding password,
+        bcryptjs.hash(password, 12).then((hashedPassword) => {
+            const teacher = new USER({
+                name,
+                email,
+                password: hashedPassword,
                 ip,
                 school,
                 district,
                 state,
-                club
-                
+                club,
+                // joinedClubs: [club] // Add initial club to joinedClubs
+            });
 
-            })
-        
             teacher.save()
-            .then(teacher => {res.json({message : "Data Saved"})})
-            .catch(err => {console.log(err)})
-        })
-    })
-})
+                .then(() => res.json({ message: "Data Saved" }))
+                .catch(err => {
+                    console.error(err);
+                    res.status(500).json({ error: "Server error" });
+                });
+        });
+    }).catch(err => {
+        console.error(err);
+        res.status(500).json({ error: "Server error" });
+    });
+});
 
 
 
-router.post("/signin" , (req , res) => {
-    const {email , password} = req.body;
 
-    if(!email || !password){
-        return res.status(422).json({error: "please add all the fields"})
+// router.post("/signin" , (req , res) => {
+//     const {email , password} = req.body;
+
+//     if(!email || !password){
+//         return res.status(422).json({error: "please add all the fields"})
+//     }
+
+//     USER.findOne({email:email}).then((savedUser) => {
+//         if(!savedUser){
+//             return res.status(422).json({error:"Invalid Email"})
+//         }
+//         bcryptjs.compare(password , savedUser.password).then((match) => {
+//             if(match){
+//                 // return res.status(200).json({message :"Signed In Successufully" })
+//                 const token = jwt.sign({_id:savedUser.id} , Jwt_secret)
+//                 const {_id ,name , email , state , district , school, club } = savedUser
+//                 res.json({token , user:{_id ,name , email , state , district , school ,club}})
+//                 console.log({token , user:{_id ,name , email , state , district , school, club}})
+//             }else{
+//                 return res.status(422).json({error :"Invalid password" })
+//             }
+//         })
+//         .catch(err => console.log(err))
+//         // console.log(savedUser)
+//     })
+// })
+
+
+
+router.post("/signin", (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(422).json({ error: "Please add all the fields" });
     }
 
-    USER.findOne({email:email}).then((savedUser) => {
-        if(!savedUser){
-            return res.status(422).json({error:"Invalid Email"})
+    USER.findOne({ email: email }).then((savedUser) => {
+        if (!savedUser) {
+            return res.status(422).json({ error: "Invalid Email" });
         }
-        bcryptjs.compare(password , savedUser.password).then((match) => {
-            if(match){
-                // return res.status(200).json({message :"Signed In Successufully" })
-                const token = jwt.sign({_id:savedUser.id} , Jwt_secret)
-                const {_id ,name , email , state , district , school, club } = savedUser
-                res.json({token , user:{_id ,name , email , state , district , school ,club}})
-                console.log({token , user:{_id ,name , email , state , district , school, club}})
-            }else{
-                return res.status(422).json({error :"Invalid password" })
+
+        bcryptjs.compare(password, savedUser.password).then((match) => {
+            if (match) {
+                const token = jwt.sign({ _id: savedUser.id }, Jwt_secret);
+
+                const {
+                    _id,
+                    name,
+                    email,
+                    state,
+                    district,
+                    school,
+                    club,
+                    // joinedClubs // <-- now included
+                } = savedUser;
+
+                res.json({
+                    token,
+                    user: {
+                        _id,
+                        name,
+                        email,
+                        state,
+                        district,
+                        school,
+                        club,
+                        // joinedClubs
+                    }
+                });
+            } else {
+                return res.status(422).json({ error: "Invalid password" });
             }
-        })
-        .catch(err => console.log(err))
-        // console.log(savedUser)
-    })
-})
+        }).catch(err => console.log(err));
+    });
+});
 
 
 

@@ -140,6 +140,26 @@ app.use(require('./routes/AllClubRoutes/techClub/school'))
 app.use(require('./routes/AllClubRoutes/techClub/techClub'))
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.use(require('./routes/AllClubRoutes/profile/joinClub'))
+
+
+
 // app.use(require('./routes/danceClub'))
 app.use(require('./routes/chapter'))
 
